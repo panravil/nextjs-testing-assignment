@@ -1,9 +1,10 @@
+import React from 'react';
 import styled from "styled-components";
 import axios from 'axios';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Layout from "../src/components/LayoutComponents";
 import Card from '../src/components/card/Card';
-import data from '../src/__nemazat/data.json';
+import { DataContext } from '../context/index';
 
 const BodyContainer = styled.div`
   width: 100%;
@@ -25,12 +26,18 @@ const Button = styled.button`
 `
 
 const Home = () => {
+
+
+
   
+  const { data } = React.useContext(DataContext);
+
+
   return (
     <Layout>
       <BodyContainer>
         {
-          data.items && data.items.map((item, index) => (
+          data && data.map((item, index) => (
             <Card {...item} key={index}></Card>
           ))
         }
@@ -43,7 +50,6 @@ const Home = () => {
     </Layout>
   )
 }
-
 
 
 

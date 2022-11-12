@@ -13,9 +13,14 @@ export default function handler(
     return Math.floor(Math.random() * max);
   }
 
+  const page = req.body.currentPage ? req.body.currentPage : 1;
+  const limit = PAGE_LIMIT;
+  console.log("request body is ", req.body);
+  const returnData = data.items.slice((page - 1) * limit, page * limit);
+
   const newData = {
     count: 30,
-    items: data.items.map(({ location, instantBookable, name, passengersCapacity, pictures, sleepCapacity, price, toilet, shower, vehicleType  }) => {
+    items: returnData.map(({ location, instantBookable, name, passengersCapacity, pictures, sleepCapacity, price, toilet, shower, vehicleType  }) => {
       return {
         location,
         instantBookable,
