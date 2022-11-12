@@ -11,7 +11,8 @@ const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 `
 
 export default function Layout({ children }: PropTypes): JSX.Element {
@@ -20,7 +21,7 @@ export default function Layout({ children }: PropTypes): JSX.Element {
       <div style={{flex: '0 0 auto'}}>
         <Header></Header>
       </div>
-      <div style={{flex: '1 1 auto', overflow: 'auto'}}>
+      <div style={{flex: '1 1 auto'}}>
         {
           children
         }

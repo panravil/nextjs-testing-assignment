@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ClickAwayListener from '@mui/base/ClickAwayListener'
 import { bookList } from '../../helpers/constants';
+import { ContextType, DataContext } from '../../../context/DataContext';
 
 const Container = styled.div`
     display: flex;
@@ -46,10 +47,13 @@ const Item = styled.div`
 export default function Select(): JSX.Element {
 
     const [showMenu, setShowMenu] = React.useState<boolean>(false);
-    const [selectedItem, setSelectedItem] = React.useState<string>('');
+    const [selectedItem, setSelectedItem] = React.useState<string>('Všechno');
+
+    const { setInstantBookable }: ContextType = React.useContext(DataContext);
 
     const handleItemClick = (item: string) => {
         setSelectedItem(item);
+        setInstantBookable( item === "Ano" ? true : item === "Ne" ? false : undefined );
         setShowMenu(false);
     }
 

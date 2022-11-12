@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { DataContext } from '../../../../context/DataContext';
 
 interface PropTypes extends React.HtmlHTMLAttributes<unknown> {
     title: string;
     content: string;
+    type: string;
 }
 
 const Container = styled.div<{selected: boolean}>`
@@ -15,6 +17,7 @@ const Container = styled.div<{selected: boolean}>`
     @media (max-width: 400px) {
         margin-top: 16px;
         margin-left: 16px;
+        min-width: 156px;
     }
 `
 
@@ -33,12 +36,32 @@ const Content = styled.div`
     margin-top: 4px;
 `
 
-export default function FilterItem ({title, content}: PropTypes): JSX.Element {
+export default function FilterItem ({title, content, type}: PropTypes): JSX.Element {
 
-    const [selected, setSelected] = React.useState<boolean>(false);
+    const [selected, setSelected] = React.useState<boolean>(true);
+
+    const {
+        selectedVehicleTypes,
+        setSelectedVehicleTypes,
+    } = useContext(DataContext)
+
+    const handleClick = async () => {
+        
+        let newVehicleTypes;
+
+        // check old selected state
+        if(!selected)
+            newVehicleTypes = [...selectedVehicleTypes, type];
+        else
+            newVehicleTypes = selectedVehicleTypes.filter(vehicleType => vehicleType !== type);
+        
+        setSelectedVehicleTypes(newVehicleTypes);
+        setSelected(!selected);
+
+    }
 
     return (
-        <Container selected={selected} onClick={() => setSelected(!selected)}>
+        <Container selected={selected} onClick={handleClick}>
             <Title>
                 {
                     title
@@ -51,4 +74,4 @@ export default function FilterItem ({title, content}: PropTypes): JSX.Element {
             </Content>
         </Container>
     )
-}
+}   

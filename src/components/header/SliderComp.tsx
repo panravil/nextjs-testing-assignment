@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { Slider, OutlinedInput, InputAdornment } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { MIN_PRICE } from '../../helpers/constants';
+import { DataContext } from '../../../context/DataContext';
 
 
 
@@ -53,6 +55,14 @@ const minDistance = 0;
 
 export default function SliderComp(): JSX.Element {
 
+    const { minPrice, setMinPrice, maxPrice, setMaxPrice, data, setData, currentPage, setCurrentPage, selectedVehicleTypes, setSelectedVehicleTypes } = useContext(DataContext);
+    const [currentMinPrice, setCurrentMinPrice] = useState(0);
+    const [currentMaxPrice, setCurrentMaxPrice] = useState(0);
+
+    React.useEffect(() => {
+        setCurrentMinPrice(minPrice);
+        setCurrentMaxPrice(maxPrice);
+    }, [minPrice, maxPrice])
 
     const styles = makeStyles({
         slider: {
@@ -80,23 +90,27 @@ export default function SliderComp(): JSX.Element {
 
     const classes = styles();
 
-    const [value1, setValue1] = React.useState<number[]>([20, 37]);
-
-    const handleChange = (
+    const handleChange = async (
         event: Event,
         newValue: number | number[],
         activeThumb: number,
-    ): void => {
+    ) => {
         if (!Array.isArray(newValue)) {
             return;
         }
-
-        if (activeThumb === 0) {
-            setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
-        } else {
-            setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-        }
+        if (activeThumb === 0)
+            setCurrentMinPrice(MIN_PRICE + newValue[0] * 100)
+        else
+            setCurrentMaxPrice(MIN_PRICE + newValue[1] * 100)
     };
+
+    const handleChangeCommited = async (
+        event: React.SyntheticEvent | Event,
+        newValue: number | number[]
+    ) => {
+        setMinPrice(currentMinPrice);
+        setMaxPrice(currentMaxPrice);
+    }
 
 
     return (
@@ -106,8 +120,9 @@ export default function SliderComp(): JSX.Element {
             </Title>
             <SliderBox>
                 <Slider
-                    value={value1}
+                    value={[(currentMinPrice - MIN_PRICE) / 100, (currentMaxPrice - MIN_PRICE) / 100]}
                     onChange={handleChange}
+                    onChangeCommitted={handleChangeCommited}
                     valueLabelDisplay="off"
                     disableSwap
                     className={classes.slider}
@@ -120,6 +135,7 @@ export default function SliderComp(): JSX.Element {
                         'aria-label': 'weight'
                     }}
                     className={classes.outlinedInput}
+                    value={currentMinPrice}
                 />
                 <OutlinedInput
                     endAdornment={<InputAdornment position='end'>Kč</InputAdornment>}
@@ -127,6 +143,7 @@ export default function SliderComp(): JSX.Element {
                         'aria-label': 'weight'
                     }}
                     className={classes.outlinedInput}
+                    value={currentMaxPrice}
                 />
             </FlexRow>
         </Container>

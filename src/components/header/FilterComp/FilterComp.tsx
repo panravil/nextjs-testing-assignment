@@ -37,6 +37,7 @@ const FlexRow = styled.div`
     justify-content: space-between;
     @media (max-width: 400px) {
         flex-wrap: wrap;
+        min-width: 364px;
     }
 `
 
