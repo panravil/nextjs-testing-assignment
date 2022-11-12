@@ -15,8 +15,6 @@ export default function handler(
 
   let filteredData = data.items;
 
-  console.log("request body: ", req.body.instantBookable);
-
   if(req.body.minPrice) {
     filteredData = filteredData.filter((element) => element.price >= req.body.minPrice);
   }
