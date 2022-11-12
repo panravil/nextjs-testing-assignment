@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { PAGE_LIMIT } from '../../src/helpers/constants';
 
 import data from '../../src/__nemazat/data.json'
 
