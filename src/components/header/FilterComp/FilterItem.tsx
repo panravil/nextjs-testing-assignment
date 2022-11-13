@@ -38,7 +38,7 @@ const Content = styled.div`
 
 export default function FilterItem ({title, content, type}: PropTypes): JSX.Element {
 
-    const [selected, setSelected] = React.useState<boolean>(true);
+    const [selected, setSelected] = React.useState<boolean>(false);
 
     const {
         selectedVehicleTypes,

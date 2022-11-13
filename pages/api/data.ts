@@ -23,7 +23,7 @@ export default function handler(
     filteredData = filteredData.filter((element) => element.price <= req.body.maxPrice);
   }
 
-  if(req.body.vehicleTypes) {
+  if(req.body.vehicleTypes.length > 0) {
     filteredData = filteredData.filter((element) => req.body.vehicleTypes.find((item: string) => item === element.vehicleType))
   }
 
