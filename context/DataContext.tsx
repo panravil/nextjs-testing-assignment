@@ -31,7 +31,7 @@ export default function DataProvider({ children }: ProviderPropTypes): JSX.Eleme
     const [currentPage, setCurrentPage] = React.useState<number>(1);
     const [minPrice, setMinPrice] = React.useState<number>(MIN_PRICE);
     const [maxPrice, setMaxPrice] = React.useState<number>(MAX_PRICE);
-    const [selectedVehicleTypes, setSelectedVehicleTypes] = React.useState<string[]>(filterOptions.map((item: FilterOption) => item.type));
+    const [selectedVehicleTypes, setSelectedVehicleTypes] = React.useState<string[]>([]);
     const [isDataEnd, setDataEnd] = React.useState<boolean>(false);
     const [instantBookable, setInstantBookable] = React.useState<boolean | undefined>();
 
