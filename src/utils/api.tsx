@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { RequestParams, ResponseAPI, ResponseDataType } from '../helpers/types';
+import { RequestParams, ResponseAPI } from '../helpers/types';
 
 export const fetchData = async (payload: RequestParams): Promise<ResponseAPI> => {
     const res = await axios.post('http://localhost:3000/api/data', payload);

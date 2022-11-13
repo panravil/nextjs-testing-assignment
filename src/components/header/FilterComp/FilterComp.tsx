@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FilterOption, filterOptions } from '../../../helpers/constants';
+import { filterOptions } from '../../../helpers/constants';
+import { FilterOption } from '../../../helpers/types';
 import FilterItem from './FilterItem';
 
 const Container = styled.div`

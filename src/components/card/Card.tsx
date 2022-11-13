@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Carousel } from 'react-responsive-carousel'
-import { ContextType, DataContext } from '../../../context/DataContext';
 
 interface PropTypes {
     pictures: string[];
@@ -74,8 +73,8 @@ export default function Card(props: PropTypes): JSX.Element {
                 >
                     {
                         props.pictures.map((picture, index) => (
-                            <div style={{ backgroundColor: '#EDEAE3' }}>
-                                <img src={picture} style={{ width: '100%', height: '190px', objectFit: 'cover' }} key={index} />
+                            <div style={{ backgroundColor: '#EDEAE3' }} key={index} >
+                                <img src={picture} style={{ width: '100%', height: '190px', objectFit: 'cover' }}/>
                             </div>
                         ))
                     }
